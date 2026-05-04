@@ -1,0 +1,8 @@
+title: Portfolio Jules Serra
+description: Portfolio personnel de Jules Serra
+baseurl: "" 
+url: "" 
+
+# Désactive les fonctionnalités inutiles
+markdown: kramdown
+theme: null

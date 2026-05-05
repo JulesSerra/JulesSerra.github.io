@@ -39,7 +39,7 @@ https://julesserra.github.io/
 ---
 
 ## Sécurité et droits
-- Le code source est privé ou non réutilisable sans autorisation
+- Le code source ainsi que le contenu du site (textes et médias) sont privé ou non réutilisable sans autorisation
 - Site hébergé via HTTPS
 - Aucune donnée sensible n’est stockée côté client
 

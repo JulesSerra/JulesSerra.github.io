@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jules Serra — Portfolio</title>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -314,6 +315,27 @@ section { min-width: 100vw; height: 100vh; display: flex; align-items: center; j
   from { transform: scaleY(0.4); }
   to   { transform: scaleY(1); }
 }
+
+nav.nav-light .nav-links a { color: rgba(0,0,0,0.45); }
+nav.nav-light .nav-links a:hover, nav.nav-light .nav-links a.active { color: var(--dark); }
+nav.nav-light .nav-links a::after { background: var(--blue); }
+nav.nav-light #arrow-prev svg path, nav.nav-light #arrow-next svg path { stroke: var(--blue); }
+
+/* CONTACT FORM */
+.contact-inner { text-align: left; padding: 0 3rem; max-width: 1100px; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.contact-left { text-align: left; }
+.contact-form { display: flex; flex-direction: column; gap: 0.75rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.form-field { display: flex; flex-direction: column; gap: 0.3rem; }
+.form-field label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); font-weight: 600; }
+.form-field input, .form-field textarea, .form-field select { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 0.65rem 0.9rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: white; outline: none; transition: border-color 0.25s, background 0.25s; resize: none; width: 100%; box-sizing: border-box; }
+.form-field input::placeholder, .form-field textarea::placeholder { color: rgba(255,255,255,0.2); }
+.form-field input:focus, .form-field textarea:focus { border-color: var(--blue); background: rgba(49,118,245,0.08); }
+.form-field textarea { height: 90px; }
+.form-submit { display: flex; align-items: center; justify-content: space-between; margin-top: 0.25rem; }
+.btn-submit { display: inline-flex; align-items: center; gap: 0.6rem; background: var(--blue); color: white; border: none; border-radius: 100px; padding: 0.75rem 1.8rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: none; transition: transform 0.25s, box-shadow 0.25s; }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(49,118,245,0.4); }
+.form-note { font-size: 0.65rem; color: rgba(255,255,255,0.2); font-family: 'DM Sans', sans-serif; }
 </style>
 </head>
 <body>
@@ -668,14 +690,57 @@ section { min-width: 100vw; height: 100vh; display: flex; align-items: center; j
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
-    <div class="section-label" style="color:rgba(255,255,255,0.35)">Travaillons ensemble</div>
-    <h2 class="contact-big">Parlons<br>de votre <span>projet.</span></h2>
-    <p class="contact-sub">Je suis disponible pour des projets freelance, des stages ou une alternance. N'hésitez pas à me contacter !</p>
-    <div class="contact-links">
-      <a class="contact-link primary" href="mailto:jules.serra@email.com"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="3" width="12" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M1.5 5l6 4.5L13.5 5" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> Me contacter</a>
-      <a class="contact-link secondary" href="https://linkedin.com" target="_blank"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="1.5" width="12" height="12" rx="2" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/><path d="M5 6.5v5M5 4.5v.01M7.5 11.5v-2.8c0-.9.45-1.4 1.35-1.4S10.2 8 10.2 9v2.5" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" stroke-linecap="round"/></svg> LinkedIn</a>
-      <a class="contact-link secondary" href="#" onclick="goTo(0);return false;"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2l5.5 3.5v7H2v-7z" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" stroke-linejoin="round"/></svg> Accueil</a>
+
+    <!-- Left: title + buttons -->
+    <div class="contact-left">
+      <div class="section-label" style="color:rgba(255,255,255,0.35);margin-bottom:0.7rem;">Travaillons ensemble</div>
+      <h2 class="contact-big" style="font-size:clamp(2.2rem,5vw,5rem);margin-bottom:1rem;">Parlons<br>de votre <span>projet.</span></h2>
+      <p class="contact-sub" style="font-size:0.88rem;margin-bottom:2rem;">Je suis disponible pour des projets freelance, des stages ou une alternance. N'hésitez pas à me contacter !</p>
+      <div class="contact-links" style="justify-content:flex-start;">
+        <a class="contact-link primary" href="https://www.linkedin.com/in/jules-serra-6849702b8/" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1.5" y="1.5" width="12" height="12" rx="2" stroke="white" stroke-width="1.2"/><path d="M5 6.5v5M5 4.5v.01M7.5 11.5v-2.8c0-.9.45-1.4 1.35-1.4S10.2 8 10.2 9v2.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact-link secondary" href="#" onclick="goTo(0);return false;">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2l5.5 3.5v7H2v-7z" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          Accueil
+        </a>
+      </div>
     </div>
+
+    <!-- Right: form -->
+    <div class="contact-form" id="contact-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Prénom</label>
+          <input type="text" id="prenom" placeholder="Jean"/>
+        </div>
+        <div class="form-field">
+          <label>Nom</label>
+          <input type="text" id="nom" placeholder="Dupont"/>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="jean.dupont@email.com"/>
+      </div>
+      <div class="form-field">
+        <label>Objet</label>
+        <input type="text" id="objet" placeholder="Stage, alternance, freelance…"/>
+      </div>
+      <div class="form-field">
+        <label>Message</label>
+        <textarea id="message" placeholder="Votre message…"></textarea>
+      </div>
+      <div class="form-submit">
+        <span class="form-note">Réponse sous 48h</span>
+        <button class="btn-submit" id="btn-submit" onclick="sendContactForm(this)">
+          Envoyer
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3 3.5-3 3.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
   </div>
   <div class="contact-footer">© 2026 Jules Serra — Portfolio</div>
 </section>
@@ -1541,6 +1606,8 @@ function goTo(idx){
   arrowPrev.classList.toggle('hidden',current===0);
   arrowNext.classList.toggle('hidden',current===total-1);
   sections.forEach((s,i)=>s.classList.toggle('section-active',i===current));
+  const lightSections=[1,3];
+  document.querySelector('nav').classList.toggle('nav-light', lightSections.includes(current));
   triggerReveal();
 }
 
@@ -1598,6 +1665,55 @@ document.addEventListener('keydown', function(e) {
     if (lb && lb.classList.contains('open')) closeLightbox();
   }
 });
+
+// ─── EMAILJS ───
+(function(){
+  emailjs.init({ publicKey: "R4gV2VCWxLUFQaHOS" });
+})();
+
+function sendContactForm(btn) {
+  const prenom  = document.getElementById('prenom').value.trim();
+  const nom     = document.getElementById('nom').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const objet   = document.getElementById('objet').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  if (!prenom || !nom || !email || !message) {
+    alert('Merci de remplir tous les champs obligatoires.');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+
+  emailjs.send("service_6strnhe", "template_e92jsx3", {
+    prenom:  prenom,
+    nom:     nom,
+    email:   email,
+    objet:   objet || '(sans objet)',
+    message: message,
+    to_email: 'jules.serra08@gmail.com'
+  }).then(() => {
+    btn.innerHTML = 'Envoyé ✓';
+    btn.style.background = '#1ed760';
+    document.getElementById('prenom').value = '';
+    document.getElementById('nom').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('objet').value = '';
+    document.getElementById('message').value = '';
+    setTimeout(() => {
+      btn.innerHTML = 'Envoyer <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3 3.5-3 3.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }).catch((err) => {
+    console.error('EmailJS error:', err);
+    btn.textContent = 'Erreur — réessayer';
+    btn.style.background = '#e53e3e';
+    btn.disabled = false;
+  });
+}
+
 // ─── INIT ───
 renderSkills();
 renderCarousel(PROJETS);

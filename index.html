@@ -2435,8 +2435,17 @@ function triggerReveal(){
 // ─── CURSOR ───
 const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+if(!document.documentElement.classList.contains('is-mobile')) {
+  document.documentElement.style.cursor='none';
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    cursor.style.left=mx+'px';cursor.style.top=my+'px';
+  });
+  (function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+} else {
+  cursor.style.display='none';
+  ring.style.display='none';
+}
 
 function refreshCursorTargets(){
   document.querySelectorAll('a,button,.skill-card,.skill-card-add,.project-card,.filter-btn,.tag,.palette-outer,.modal-close,.modal-nav,.nav-logo,.interest-item,.skill-choice-card,#lightbox-close,#lightbox img').forEach(el=>{
@@ -2556,6 +2565,35 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeMentions();
 });
 
+
+// ─── MOBILE SCROLL FIX ───
+if (document.documentElement.classList.contains('is-mobile')) {
+  // Remove all inline transforms from track
+  document.addEventListener('DOMContentLoaded', function() {
+    var track = document.getElementById('track');
+    var wrapper = document.getElementById('wrapper');
+    var sections = document.querySelectorAll('section');
+    
+    // Force styles directly
+    document.documentElement.setAttribute('style', 'height:auto!important;overflow-y:auto!important;overflow-x:hidden!important;');
+    document.body.setAttribute('style', 'height:auto!important;overflow-y:auto!important;overflow-x:hidden!important;');
+    
+    if (wrapper) wrapper.setAttribute('style', 'height:auto!important;overflow:visible!important;position:static!important;');
+    if (track) {
+      track.setAttribute('style', 'display:flex!important;flex-direction:column!important;transform:none!important;height:auto!important;overflow:visible!important;position:static!important;');
+    }
+    sections.forEach(function(s) {
+      s.setAttribute('style', 'width:100%!important;min-width:0!important;height:auto!important;min-height:100svh;display:block!important;overflow:visible!important;position:relative!important;');
+    });
+    
+    // Show all hidden content immediately
+    document.querySelectorAll('.apropos-inner,.comp-inner,.projets-inner,.contact-inner,.hero-content,.reveal').forEach(function(el) {
+      el.setAttribute('style', (el.getAttribute('style')||'') + 'opacity:1!important;transform:none!important;transition:none!important;');
+    });
+    document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+    document.querySelectorAll('.skill-bar').forEach(function(bar) { bar.style.width=(bar.dataset.w||80)+'%'; });
+  });
+}
 
 // ─── LANG TOGGLE ───
 const TRANSLATIONS = {
@@ -2957,25 +2995,6 @@ goTo(0);
 </div>
 
 
-
-<script>
-// Force cursor point visible — standalone script
-(function() {
-  var dot = document.getElementById('cursor');
-  if (!dot) {
-    dot = document.createElement('div');
-    dot.id = 'cursor-dot-fix';
-    dot.style.cssText = 'position:fixed;width:8px;height:8px;background:#3176f5;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);left:-100px;top:-100px;box-shadow:0 0 0 2px rgba(255,255,255,0.8);';
-    document.body.appendChild(dot);
-  } else {
-    dot.style.cssText = 'position:fixed!important;width:8px!important;height:8px!important;background:#3176f5!important;border-radius:50%!important;pointer-events:none!important;z-index:99999!important;transform:translate(-50%,-50%)!important;left:-100px;top:-100px;box-shadow:0 0 0 2px rgba(255,255,255,0.8)!important;display:block!important;';
-  }
-  document.addEventListener('mousemove', function(e) {
-    dot.style.left = e.clientX + 'px';
-    dot.style.top = e.clientY + 'px';
-  });
-})();
-</script>
 
 </body>
 </html>

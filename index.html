@@ -2,12 +2,18 @@ html.is-mobile #wrapper { height: auto !important; overflow: visible !important;
 <html lang="fr">
 <head>
 <script>
-// Sync mobile detection — runs before render
-if (window.innerWidth <= 768) {
+// Mobile detection — multiple signals
+function detectMobile() {
+  var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  var isSmallScreen = window.innerWidth <= 900;
+  var isMobileUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return isTouchDevice || isSmallScreen || isMobileUA;
+}
+if (detectMobile()) {
   document.documentElement.classList.add('is-mobile');
 }
 window.addEventListener('resize', function() {
-  if (window.innerWidth <= 768) {
+  if (detectMobile()) {
     document.documentElement.classList.add('is-mobile');
   } else {
     document.documentElement.classList.remove('is-mobile');
@@ -531,7 +537,7 @@ nav:not(.nav-light) #burger-btn span { background: white; }
 /* ═══════════════════════════════════════════════
    MOBILE (≤ 768px)
 ═══════════════════════════════════════════════ */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 
   
 
@@ -764,7 +770,7 @@ html.is-mobile #cursor-ring { display: none !important; }
 /* ══════════════════════════════════════
    MOBILE (≤ 768px)
 ══════════════════════════════════════ */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 
   /* Layout vertical — scroll natif */
   html:not(.desktop-force), body { cursor: auto !important; }

@@ -787,8 +787,9 @@ html.is-mobile #cursor-ring { display: none !important; }
     width: 100vw !important;
     min-width: 0 !important;
     height: auto !important;
-    min-height: 100svh;
+    min-height: unset;
     flex-shrink: 0;
+    overflow: visible !important;
   }
 
   /* Nav */
@@ -813,8 +814,6 @@ html.is-mobile #cursor-ring { display: none !important; }
     grid-template-columns: unset !important;
     padding: 4.5rem 1.2rem 2rem !important;
     gap: 1.5rem;
-    overflow-y: auto;
-    height: 100vh;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -830,8 +829,6 @@ html.is-mobile #cursor-ring { display: none !important; }
   /* COMPÉTENCES */
   .comp-inner {
     padding: 4.5rem 1.2rem 2rem !important;
-    overflow-y: auto;
-    height: 100vh;
     box-sizing: border-box;
   }
   .skills-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
@@ -841,7 +838,7 @@ html.is-mobile #cursor-ring { display: none !important; }
   /* PROJETS */
   .projets-header-bar { padding: 4rem 1.2rem 0.8rem; }
   .projets-header-bar > div { margin-left: 0 !important; }
-  .projets-inner { padding: 0 1.2rem 1rem; overflow-y: auto; max-height: calc(100vh - 120px); }
+  .projets-inner { padding: 0 1.2rem 1rem; }
   .proj-carousel { grid-template-columns: repeat(2,1fr); gap: 0.6rem; }
   .project-title { font-size: 0.76rem; }
   .filter-bar { flex-wrap: wrap; gap: 0.3rem; }
@@ -854,8 +851,6 @@ html.is-mobile #cursor-ring { display: none !important; }
     grid-template-columns: 1fr !important;
     padding: 4.5rem 1.2rem 2rem !important;
     gap: 1.5rem;
-    overflow-y: auto;
-    height: 100vh;
     box-sizing: border-box;
     align-items: flex-start;
   }
